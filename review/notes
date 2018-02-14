@@ -1,8 +1,0 @@
-- Deeper look at MongoDB
-- JSON and BSON
-- Unique IDs in MongoDB documents
-
-The idea of context, when creating your NoSQL data structure you must consider how a user expects to access the content. Having the user access a blog article, for example, it would make more sense for the url to read domain.com/blog-title vs domain.com/author/blog-title.
-
-The article / post object includes the authoer name and their id incase you would like to access the author data.
-

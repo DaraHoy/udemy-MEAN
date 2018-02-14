@@ -1,9 +1,3 @@
-/*
-- Difference of NoSQL vs relational data
-- What NoSQL data looks like
-- How to approach designing a NoSQL data structure
-*/
-
 var express = require('express');
 var app = express();
 var path = require('path');
@@ -34,3 +28,4 @@ var server = app.listen(app.get('port'), function() {
   var port = server.address().port;
   console.log('Magic happens on port ' + port);
 });
+
