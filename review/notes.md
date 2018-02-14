@@ -1,29 +1,29 @@
-- Listing db and collections
-- Creating databases, collections, & documents
-- Retrieving documents
+- Querying he database to find documents
+- Modifying the data returned e.g. sorting
+- Updating documents
+- Deleting documents
 
-MongoDB commands:
-show dbs
-use *
-    if using a db that does not exist use creates a db under the name provided but will not exist until data is added.
-show collections
-db.createCollections("*")
-    creates a collection named *
-db.dbName.insert({key: value})
-    inserts a new document into the database
-db.dbNmae.find()
-    returns all documents within collection
-db.dbNmae.find().pretty()
-    formats data to json
+find() with key value data
+example:
+    db.dbName.find({"key": value})
 
-example of multiple insert:
-db.meantest.insert([{
-    name: "Express",
-    role: "Web Application Server"
-}, {
-    name: "Angular",
-    role: "Front-end framework"
-}, {
-    name: "Node.js",
-    role: "Platform"
-}])
+sort() takes an object with a key to search by and a value of 1 for ascending and -1 for decending
+example:
+    db.meantest.find().sort({ "name": 1 })
+
+Projection {} parameter takes a second paramter object that you can use to limit the number of fields that are returned from the query.
+example:
+    db.meantest.find({},{"_id": false, "name": false})
+
+returns:
+
+    { "role" : "Database" }
+    { "role" : "Web Application Server" }
+    { "role" : "Front-end framework" }
+    { "role" : "Platform" }
+
+note the id and name are ommitted
+
+update() takes 2 paramaters the first finds the document you want to update the second uses the $set command to change the value.
+example:
+    db.meantest.update({"name": "Angular"}, {$set: {"name": "AngularJS"}})
