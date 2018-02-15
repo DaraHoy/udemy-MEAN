@@ -1,29 +1,35 @@
-- Querying he database to find documents
-- Modifying the data returned e.g. sorting
-- Updating documents
-- Deleting documents
+- Importing / Exporting BSON data
+- Importing / Exporting JSON data
+- When to use different approach
 
-find() with key value data
-example:
-    db.dbName.find({"key": value})
+MongoDB Utilities:
 
-sort() takes an object with a key to search by and a value of 1 for ascending and -1 for decending
-example:
-    db.meantest.find().sort({ "name": 1 })
+BSON-based utilities
+    BSON is Binary JSON, MongoDB stores all of its data as binary
 
-Projection {} parameter takes a second paramter object that you can use to limit the number of fields that are returned from the query.
-example:
-    db.meantest.find({},{"_id": false, "name": false})
+$ mongodump
+    creates an export of a db, if --db flag is omitted mongodump will create an export of all dbs
+    mongodump --db meantest
+    by default mongodump saves the exported db in a file called dump within the current working directory
+    mongodump --db meantest --gzip
+    tells the export to be put into a gzip file, useful for large size dbs
 
-returns:
+$ mongorestore
+    imports or restore a db
+    mongorestore --db mean2
+    if --db flag is omitted then a new db would be created
+    mongodump --db meantest --gzip dump/meantest
+    tells import to look for a gzip file within the provided filepath
 
-    { "role" : "Database" }
-    { "role" : "Web Application Server" }
-    { "role" : "Front-end framework" }
-    { "role" : "Platform" }
+JSON-based utilities
 
-note the id and name are ommitted
+$ mongoexports --db meantest --collection tech
+    the --collection flag is required because mongoexports is used on a single collection at a time
+    to output to a a file you need the --out flag that specify the file to be outputted to
+    mongoexports --db meantest --collection tech --out api/data/tech.json
+    this will create tech.json and output the collection to it
+    --jsonArray will format export data into an array
+    --pretty will make json array human readable
 
-update() takes 2 paramaters the first finds the document you want to update the second uses the $set command to change the value.
-example:
-    db.meantest.update({"name": "Angular"}, {$set: {"name": "AngularJS"}})
+$ mongoimport --db mean3 --collection tech --jsonArray MEAN/api/data/tech.json
+    imports / creates new db called mean 3 with a collection named tech using the JSON array found in tech.json
