@@ -1,15 +1,12 @@
 var dbconn = require("../data/dbconnection");
+var ObjectId = require('mongodb').ObjectId;
 var hotelData = require('../data/hotel-data.json');
 
 module.exports.hotelsGetAll = function(req, res) {
 
   var db = dbconn.get();
-  console.log("db", db);
+  var collection = db.collection('hotels');
 
-  console.log('GET the hotels');
-  console.log(req.query);
-
-  var returnData;
   var offset = 0;
   var count = 5;
 
@@ -21,18 +18,41 @@ module.exports.hotelsGetAll = function(req, res) {
     count = parseInt(req.query.count, 10);
   }
 
-  returnData = hotelData.slice(offset,offset+count);
-
-  res
-    .status(200)
-    .json(returnData);
+  collection
+    .find()
+    .skip(offset)
+    .limit(count)
+    .toArray(function(err, docs) {
+      if (err) {
+        console.log("docs not found")
+        return;
+      }
+      console.log("Found hotels", docs);
+      res
+        .status(200)
+        .json(docs);
+    });
 };
 
 module.exports.hotelsGetOne = function(req, res) {
+  var db = dbconn.get();
+  var collection = db.collection('hotels');
+
+  var hotelId = req.params.hotelId;
   console.log('GET hotelId', req.params.hotelId);
-  res
-    .status(200)
-    .json(hotelData[req.params.hotelId]);
+
+  collection
+    .findOne({
+      _id: ObjectId(hotelId)
+    }, function(err, doc) {
+      if (err) {
+        console.log("doc not found");
+        return;
+      }
+      res
+        .status(200)
+        .json(doc);
+    }); // a method from the mongoDB driver that takes a callback
 };
 
 module.exports.hotelsAddOne = function(req, res) {
