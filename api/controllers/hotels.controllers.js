@@ -1,6 +1,10 @@
+var dbconn = require("../data/dbconnection");
 var hotelData = require('../data/hotel-data.json');
 
 module.exports.hotelsGetAll = function(req, res) {
+
+  var db = dbconn.get();
+  console.log("db", db);
 
   console.log('GET the hotels');
   console.log(req.query);
@@ -12,7 +16,7 @@ module.exports.hotelsGetAll = function(req, res) {
   if (req.query && req.query.offset) {
     offset = parseInt(req.query.offset, 10);
   }
-  
+
   if (req.query && req.query.count) {
     count = parseInt(req.query.count, 10);
   }
