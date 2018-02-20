@@ -1,4 +1,4 @@
-var dbconn = require("../data/dbconnection");
+var dbconn = require("../data/db");
 var ObjectId = require('mongodb').ObjectId;
 var hotelData = require('../data/hotel-data.json');
 

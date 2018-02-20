@@ -32,3 +32,5 @@ process.once('SIGUSR2',function(){ //Close connetion on app restart
         process.kill(process.pid, 'SIGUSR2');
     });
 });
+
+require("hotel.model.js");
