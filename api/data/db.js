@@ -1,5 +1,5 @@
 var mongoose = require("mongoose");
-var dburl = 'mongodb://'+ process.env.IP +':27017/meanhotel';
+var dburl = 'mongodb://'+ process.env.IP +'/meanhotel';
 
 mongoose.connect(dburl);
 
@@ -26,11 +26,12 @@ process.on('SIGTERM',function(){
         process.exit(0);
     });
 });
-process.once('SIGUSR2',function(){ //Close connetion on app restart
+//Close connetion on app restart
+process.once('SIGUSR2',function(){
     mongoose.connection.close(function(){
         console.log("Mongoose disconnected through app termination (SIGUSR2)");
         process.kill(process.pid, 'SIGUSR2');
     });
 });
 
-require("hotel.model.js");
+require("./hotels.model.js");
