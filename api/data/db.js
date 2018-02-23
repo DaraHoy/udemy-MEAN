@@ -1,5 +1,5 @@
 var mongoose = require("mongoose");
-var dburl = 'mongodb://'+ process.env.IP +'/meanhotel';
+var dburl = 'mongodb://'+ process.env.IP +':27017'+'/meanhotel';
 
 mongoose.connect(dburl);
 

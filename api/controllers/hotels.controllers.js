@@ -89,5 +89,4 @@ module.exports.hotelsAddOne = function(req, res) {
       .status(400)
       .json({ message: "Required Data missing from body" })
   }
-
 };
