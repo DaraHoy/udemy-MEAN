@@ -58,6 +58,9 @@ typings/
 .env
 
 #database
-api/data/local*
-api/data/mean*
-api/data/mongod*
+*.0
+*.ns
+*.lock
+api/data/local/
+api/data/meanhotel/
+api/data/meantest/
