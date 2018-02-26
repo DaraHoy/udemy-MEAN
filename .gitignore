@@ -56,3 +56,8 @@ typings/
 
 # dotenv environment variables file
 .env
+
+#database
+api/data/local*
+api/data/mean*
+api/data/mongod*
