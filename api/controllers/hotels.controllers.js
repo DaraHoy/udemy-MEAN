@@ -198,7 +198,7 @@ module.exports.hotelsUpdateOne = function(req, res) {
       }
       else {
         // update using .notation to set form data to the model instance 'doc'
-          doc.name = req.body.name,
+        doc.name = req.body.name,
           doc.description = req.body.description,
           doc.stars = parseInt(req.body.stars, 10),
           doc.services = _splitArray(req.body.services),
@@ -211,18 +211,38 @@ module.exports.hotelsUpdateOne = function(req, res) {
               parseFloat(req.body.lat)
             ]
           };
-          doc.save(function(err, hotelUpdated){
-            if (err) {
-             res
+        doc.save(function(err, hotelUpdated) {
+          if (err) {
+            res
               .status(500)
               .json(err);
-            } else {
-              res
-                .status(204)
-                .json();
-            }
-          });
+          }
+          else {
+            res
+              .status(204)
+              .json();
+          }
+        });
       }
 
     });
+};
+
+module.exports.hotelsDeleteOne = function(req, res) {
+  var hotelId = req.params.hotelId;
+
+  Hotel
+    .findOneAndRemove(hotelId)
+    .exec(function(err, hotel) {
+      if (err) {
+        res
+          .status(404)
+          .json(err);
+      }
+      else {
+        res
+          .status(204)
+          .json();
+      }
+    })
 };

@@ -91,6 +91,7 @@ STATUS CODES:
 2. 500: Internal server error
 3. 201: Created
 4. 204: No Content
+5. 404: Not Found
 
 Harden api route for getAll and getOne
 --------------------------------------
@@ -133,8 +134,19 @@ write new controller for reviewsAddOne
         Lecture 34
 1. Using the HTTP "DELETE" method
 2. Deleting documents using a Mongoose model method
+  * Use mongoose method findByIdAndRemove()
+  * Get hotel id from req params
+  * call remove method
+  * execute it with exec()
 3. Deleting sub-documents using a Mongoose helper method
+  * Find parent document first
+  * Use boilerplate code from reviewsUpdateOne
+  * Change code update code to delete method
 
+--------------------------------------------
+        Lecture 35
+     Intro to AngularJS
 
-
+1. Expressions
+2. Data-binding
 
