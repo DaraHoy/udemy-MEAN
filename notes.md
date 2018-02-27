@@ -160,9 +160,11 @@ Setup
     * this gives the page the scope assoaciated to the angular directive
 
 ------------------------------------------
-        Lecture 36
-1. Directives
+        Lecture 36 + 37
 
+1. Built-in Directives
+2. Built-in Filters
+        Allows you to format data and expressions
 
 ** Direcetives **
 ng-app: Defines the scope of your angular application
@@ -197,6 +199,21 @@ ng-repeat="number in numbers"
 ng-options: "used to dynamically generate a list of <option> elements for the <select> element using the array or object obtained by evaluating the ngOptions comprehension expression."
 
 ng-cloak:"The ngCloak directive is used to prevent the AngularJS html template from being briefly displayed by the browser in its raw (uncompiled) form while your application is loading. Use this directive to avoid the undesirable flicker effect caused by the html template display."
+
+**Filters**
+Currency
+```
+ng-init="amount = 1234.50"
+<p> {{amount | currency}} </p> // $1,234.50
+example of filtering with parameters
+<p> {{amount | currency: "¢"}} </p> // ¢1,234.50
+
+```
+Uppercase / Lowercase
+```
+<p>{{string|uppercase}}</p>
+```
+
 
 **Questions**
 What is a fogiving expression?
