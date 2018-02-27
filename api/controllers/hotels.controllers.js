@@ -10,21 +10,15 @@ var runGeoQuery = function(req, res) {
     res
       .status(400)
       .json({
-        "message" : "If supplied in querystring, lng and lat must both be numbers"
+        "message": "If supplied in querystring, lng and lat must both be numbers"
       });
     return;
   }
 
-  //A geoJson point
   var point = {
     type: "Point",
     coordinates: [lng, lat]
   };
-  //   var geoOptions = {
-  //       spherical: true,
-  //       maxDistance: 2000, //in meters = 2km
-  //       num: 5
-  //   };
 
   Hotel
     .aggregate([{
@@ -131,11 +125,12 @@ module.exports.hotelsGetOne = function(req, res) {
 };
 
 //Helper function
-var _splitArray = function(input){
+var _splitArray = function(input) {
   var output;
   if (input && input.length > 0) {
     output = input.split(";");
-  } else {
+  }
+  else {
     output = [];
   }
   return output;
@@ -145,28 +140,89 @@ module.exports.hotelsAddOne = function(req, res) {
 
   Hotel
     .create({
-      name : req.body.name,
-      description : req.body.description,
-      stars : parseInt(req.body.stars,10),
-      services : _splitArray(req.body.services),
-      photos : _splitArray(req.body.photos),
-      currency : req.body.currency,
-      location : {
-        address : req.body.address,
-        coordinates : [parseFloat(req.body.lng), parseFloat(req.body.lat)]
+      name: req.body.name,
+      description: req.body.description,
+      stars: parseInt(req.body.stars, 10),
+      services: _splitArray(req.body.services),
+      photos: _splitArray(req.body.photos),
+      currency: req.body.currency,
+      location: {
+        address: req.body.address,
+        coordinates: [parseFloat(req.body.lng), parseFloat(req.body.lat)]
       }
-    }, function(err,hotel){
+    }, function(err, hotel) {
       if (err) {
         console.log("Error creating hotel", err);
         res
           .status(400)
           .json(err);
-      } else {
+      }
+      else {
         console.log("Hotel created", hotel);
         res
           .status(201)
           .json(Hotel)
-
       }
+    });
+};
+
+module.exports.hotelsUpdateOne = function(req, res) {
+  var hotelId = req.params.hotelId;
+  console.log('GET hotelId', req.params.hotelId);
+
+  Hotel
+    .findById(hotelId)
+    // Sets exclusion rule for subdocuments
+    .select("-reviews -rooms")
+    .exec(function(err, doc) {
+      var response = {
+        status: 200,
+        message: doc
+      };
+
+      if (err) {
+        console.log("Error finding hotel");
+        response.status = 500;
+        response.message = err;
+      }
+      else if (!doc) {
+        response.status = 404;
+        response.message = {
+          "message": "Hotel ID not found"
+        };
+      }
+      if (response.status != 200) {
+        res
+          .status(response.status)
+          .message(response.message);
+      }
+      else {
+        // update using .notation to set form data to the model instance 'doc'
+          doc.name = req.body.name,
+          doc.description = req.body.description,
+          doc.stars = parseInt(req.body.stars, 10),
+          doc.services = _splitArray(req.body.services),
+          doc.photos = _splitArray(req.body.photos),
+          doc.currency = req.body.currency,
+          doc.location = {
+            address: req.body.address,
+            coordinates: [
+              parseFloat(req.body.lng),
+              parseFloat(req.body.lat)
+            ]
+          };
+          doc.save(function(err, hotelUpdated){
+            if (err) {
+             res
+              .status(500)
+              .json(err);
+            } else {
+              res
+                .status(204)
+                .json();
+            }
+          });
+      }
+
     });
 };
