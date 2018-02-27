@@ -148,5 +148,21 @@ write new controller for reviewsAddOne
      Intro to AngularJS
 
 1. Expressions
+        * AngularJS allows expressions to be evaluated inside html markup.
+        * Expressions are idicated with {{ }}
+
 2. Data-binding
+        Any update to the model is also updated in the view and vice versa
+
+Setup
+  1. Add AngularJS library script ver 1.4.0
+  2. attach ng-app directive to the <html> tag e.g. <html ng-app>
+    * this gives the page the scope assoaciated to the angular directive
+
+** Direcetives **
+ng-app: Defines the scope of your angular application
+ng-model
+
+**Questions**
+What is a fogiving expression?
 
