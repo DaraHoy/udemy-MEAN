@@ -159,9 +159,44 @@ Setup
   2. attach ng-app directive to the <html> tag e.g. <html ng-app>
     * this gives the page the scope assoaciated to the angular directive
 
+------------------------------------------
+        Lecture 36
+1. Directives
+
+
 ** Direcetives **
 ng-app: Defines the scope of your angular application
-ng-model
+
+ng-model:
+
+ng-init: Initialize a variable:
+```
+<div ng-init="name = Dara">
+        {{name}} // Dara
+<div>
+```
+ng-click: invokes function / expression on the tagged element
+
+ng-if: evaluates expression if true then tagged element will show
+```
+<p ng-if="checked">secret message</p>
+```
+ng-show: same as ng-if but ng-if removes the element from dom while
+ng-show gets css display: none property
+
+ng-hide: inverse of show
+
+ng-class: allows you to modify css class dynamically based on conditions
+```
+ng-class={red: guess != number, green: guess == number}
+```
+ng-repeat: allows you to iterate through a collection of elements
+```
+ng-repeat="number in numbers"
+```
+ng-options: "used to dynamically generate a list of <option> elements for the <select> element using the array or object obtained by evaluating the ngOptions comprehension expression."
+
+ng-cloak:"The ngCloak directive is used to prevent the AngularJS html template from being briefly displayed by the browser in its raw (uncompiled) form while your application is loading. Use this directive to avoid the undesirable flicker effect caused by the html template display."
 
 **Questions**
 What is a fogiving expression?
