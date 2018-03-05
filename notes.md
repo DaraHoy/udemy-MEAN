@@ -201,7 +201,7 @@ ng-options: "used to dynamically generate a list of <option> elements for the <s
 ng-cloak:"The ngCloak directive is used to prevent the AngularJS html template from being briefly displayed by the browser in its raw (uncompiled) form while your application is loading. Use this directive to avoid the undesirable flicker effect caused by the html template display."
 
 **Filters**
-Currency
+currency
 ```
 ng-init="amount = 1234.50"
 <p> {{amount | currency}} </p> // $1,234.50
@@ -209,12 +209,79 @@ example of filtering with parameters
 <p> {{amount | currency: "¢"}} </p> // ¢1,234.50
 
 ```
-Uppercase / Lowercase
+uppercase / lowercase
 ```
 <p>{{string|uppercase}}</p>
 ```
+date
+```
+ng-init="myDate = 1399648945000"
+<p> {{myDate | date}} </p> // May 9, 2014
+example of filtering with parameters
+<p> {{myDate | date: 'yyyy - MMMM - d (H:m)'}} </p>
+// 2014 - May - 9 (17:22)
+```
+limitTo: limits number of elements in an array
+orderBy: sorts array items on ng-repeat
+filter
+----------------------------------------
+        Lecture 38 + 39
+1. Controllers
+2. $scope
+  * grants an element the scope assoaciated with the controller
+3. controllerAs
+4. Modules
+
+--------------------------------------
+        Lecture 40
+- SPA (Single Page Apps)
+  * Use the ng-view directive to update the page with the requested view
+- Routes
+  1. Include scripts for route dependency
+  2. Include route dependency in myApp, 'ngRoute'
+  3. configure the $routeProvider
+- Templates
+  * Templates used as views when route reaches a path
+  * Use templateUrl to asssign a template path
+
+----------------------------------------------
+        Lecture 41-43
+     Built-in Services
+- $routeProvider
+- $http
+- custom services
+- factory
+- custom filters
+
+---------------------
+        Lecture 44
+        SPA part 1
+        GOAL: Setup angular to a working state
+- create angular-app in public/
+- add app.use() in app.js to include node_modules
+- add script link for angular and angular-route to index.html
+  *switch to CDN node_modules link not working, might be issue with app.use()
+- include ngRout module
+- attach config
+- attach controller
+- configure route provider to specify view
+- set controller - 'vm' assign to 'this'
+-----------------------------------------------------------------------------
+        Lecture 45
+        SPA part 2
+        GOAL: Better file structure
+- create folders within angular app for each endpoint
+  * angular-app/hotel-list controller files for displaying all hotels
+  * angular-app/hotel-display controller for files displaying single hotel
+- remove controller code from app.js
+- update template url
+- include controller file to index.html
+- Connect to your API
+  * pass in the $http service into your controller function
+  * send a get to your show all endpoint
+  * assign the response.data to a variable e.g. 'vm.hotels = response.data'
+  * include a 'ul', indide an 'li' tag attach a ng-repeat with the data item e.g. 'hotel in vm.hotels'
 
 
-**Questions**
-What is a fogiving expression?
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-route.js"></script>

@@ -64,3 +64,6 @@ typings/
 api/data/local/
 api/data/meanhotel/
 api/data/meantest/
+
+# AngularJS practice files
+angular/
