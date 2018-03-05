@@ -1,6 +1,6 @@
 angular.module('meanhotel').controller('HotelController', HotelController);
 
-function HotelController($routeParams, hotelDataFactory) {
+function HotelController($route, $routeParams, hotelDataFactory) {
     var vm = this;
     //assign a variable to the url id parameter
     var id = $routeParams.id;
@@ -11,8 +11,29 @@ function HotelController($routeParams, hotelDataFactory) {
         vm.hotel = response;
         vm.stars = _getStarsRatings(response.stars)
     });
-}
 
-function _getStarsRatings(stars) {
-    return new Array(stars);
+
+    function _getStarsRatings(stars) {
+        return new Array(stars);
+    }
+
+    vm.addReview = function() {
+    var postData = {
+      name: vm.name,
+      rating: vm.rating,
+      review: vm.review
+    };
+    if (vm.reviewForm.$valid) {
+      hotelDataFactory.postReview(id, postData).then(function(response) {
+        // If post wass successful 'response.status' returns '200' page will refresh automatically
+        if (response.status === 200) {
+          $route.reload();
+        }
+      }).catch(function(error) {
+        console.log(error);
+      });
+    } else {
+      vm.isSubmitted = true;
+    }
+  };
 }

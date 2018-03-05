@@ -325,3 +325,42 @@ filter
         - scope: {
                 stars: '@'
         }
+- adjust template to iterate through stars:
+  * template: '<span ng-repeat="star in vm.stars track by $index" class="glyphicon glyphicon-star">{{star}}</span>',
+- create a helper function in hotel-controller to convert vm.stars number to an array, then iterate through the array creating a star glyphicon per index
+- (OPTIONAL) create a component instead of a directive
+------------------------------------------------------
+
+        Lecture 48
+        SPA final part
+        GOAL: Form validation, post request to API endpoint
+- Form validation attributes, used with form elements i.e 'input'
+  * ng-minlength='number'
+  * ng-maxlength='number'
+  * ng-model='elementName' - binds to element
+  * ng-pattern='/^[0-9]{2,3}$/' *use regular expressions, /^[0-9]{2,3}$/ means only numbers and 2-3 characters in length
+  * '$prestine': the form has NOT been modified ie {{myForm.$pristine}} // returns true / false
+  * '$dirty': the form HAS been modified ie {{myForm.$dirty}}
+  * '$invalid': the form is NOT valid as is {{myForm.name.$invalid}} // returns true / false
+- Combine with ng-show/if/hide
+  * <div ng-show="myForm.name.$dirty && myForm.name.$invalid"></div>
+
+- Include form elements in show one template
+  * ng-submit='vm.addReview()' attribute on form element
+- Create addReview() function in controller 'hotel-display-controller'
+  * Collect the form data:
+    var postData = {
+        name: vm.name,
+        rating: vm.rating,
+        review: vm.review
+    }
+  * If the form is valid submit to factory method:
+  if (vm.reviewForm.$valid) {
+      hotelDataFactory.postReview(id, postData).then(function(response) {
+        if (response.status === 200) {
+          $route.reload();
+        }
+- Create $http.post method in factory
+- Expose postReview() function from factory, include it in return object
+- Update app.js (express) to include bodyParser json  as middle-wear since angular does not natively include urlencoded form data
+- include reload in display controller * currently not working*
