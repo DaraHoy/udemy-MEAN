@@ -266,10 +266,11 @@ filter
 - attach controller
 - configure route provider to specify view
 - set controller - 'vm' assign to 'this'
+
 -----------------------------------------------------------------------------
         Lecture 45
         SPA part 2
-        GOAL: Better file structure
+        GOAL: Better file structure, API: Show all
 - create folders within angular app for each endpoint
   * angular-app/hotel-list controller files for displaying all hotels
   * angular-app/hotel-display controller for files displaying single hotel
@@ -282,6 +283,45 @@ filter
   * assign the response.data to a variable e.g. 'vm.hotels = response.data'
   * include a 'ul', indide an 'li' tag attach a ng-repeat with the data item e.g. 'hotel in vm.hotels'
 
+------------------------------------------------------------------------------------------------------
+        Lecture 46
+        SPA part 3
+        GOAL: API: Show one, $http Factory
+- Confirm endpoint 'api/hotels/:id' endpoint is working
+- create controller + html for single hotel view
+- include new controller to index
+- pass '$http' + '$routeParams' to controller function
+- add response object testing to hotel.html
+- include '<a ng-href>' to hotels.html
+  * '<li ng-repeat='hotel in vm.hotels'><a ng-href='#!/hotels/{{hotel._id}}'>{{hotel.name}}</a></li>'
+  * notice the expression used to get the id {{hotel._id}} included as the link params
+  * not sure what #! does but it fixed view render issue
+- Create Factory for $http methods
+  * hotelList - $http.get('/api/hotels').then(complete).catch(failed);
+  * hotelDisplay - $http.get('/api/hotels/' + id).then(complete).catch(failed);
+  * attach complete call back and error catching to methods
+- Update controllers to pass in the Factory
+  * replace api call with factory methods
+  * hotelDataFactory.hotelList().then(function(response){
+        //console.log(response)
+        vm.hotels = response.data;
+    })
+- Show one controller (hotel-display-controller.js) keeps $routeParams service and replaces $http with Factory
+- Include hotel-data-factory.js in index.js
+-------------------------------------------
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-route.js"></script>
+        Lecture 47
+        SPA part 4
+        GOAL: Build a custom directive (Stars)
+- include additional information to hotel.html
+- create directive folder and script file (/hotel-ratings-directive, hotel-ratings-directive.js)
+- include directive script in index.html
+- create stars attribute for the custom directive i.e 'stars="vm.stars"'
+  * in order to access the 'vm.stars' property, we need to attach the controller to the directive
+      * include the following properties to your custom directive
+        - bindToController: true,
+        - controller: 'HotelController',
+        - controllerAs: 'vm',
+        - scope: {
+                stars: '@'
+        }
