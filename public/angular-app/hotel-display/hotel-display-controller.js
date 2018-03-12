@@ -26,7 +26,9 @@ function HotelController($route, $routeParams, hotelDataFactory) {
     if (vm.reviewForm.$valid) {
       hotelDataFactory.postReview(id, postData).then(function(response) {
         // If post wass successful 'response.status' returns '200' page will refresh automatically
-        if (response.status === 200) {
+        if (response) {
+            console.log('restart!', response);
+
           $route.reload();
         }
       }).catch(function(error) {

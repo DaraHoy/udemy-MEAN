@@ -363,4 +363,25 @@ filter
 - Create $http.post method in factory
 - Expose postReview() function from factory, include it in return object
 - Update app.js (express) to include bodyParser json  as middle-wear since angular does not natively include urlencoded form data
-- include reload in display controller * currently not working*
+- include $route.reload() inside display show one controller
+------------------------------------------------------------
+
+        Lecture 49
+        Securing API
+
+- Authentication
+- JSON Web Tokens
+- Backend
+    1. User model: Since user info will be stored in our db we need to create a user schema
+    2. require userSchema in db.js
+    3. Create controller and export login/authntication functions
+    4. Create routes in index.js for both methods
+- Frontend
+- Install bcrypt package 'npm i bcrypt-nodejs' bcrypt is used to hash / encrypt your passwords
+  * .hashSync()create a hash from the password and sets the has into the db as the password
+  * .compareSync() compares the password from the req to the pw stored in the db, dcrypted
+------------------------------------------------------------------------------------------
+
+        Lecture 50
+        Adding JWT
+-

@@ -34,4 +34,6 @@ process.once('SIGUSR2', function() {
     });
 });
 
+//Bring in models and schemas
 require("./hotels.model.js");
+require("./users.model.js");
