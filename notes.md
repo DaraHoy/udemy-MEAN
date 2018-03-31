@@ -383,5 +383,20 @@ filter
 ------------------------------------------------------------------------------------------
 
         Lecture 50
-        Adding JWT
--
+        Adding JWT (json web token )
+- npm install jsonwebtoken
+- add JWT methods to the login function
+  * sign()
+    - paramaters include: payload, secret, expiresIn object
+- create an authentication middleware function
+- Add authentication middleware to the GET all route
+- IF the token is not provided then the next() method inside authentication() will not run thus not allowing unauthorized users into the GET controller
+- Middleware function must be called from the route definition
+--------------------------------------------------------------
+
+    Lecture 52
+create main controller/ view
+create navigation controller/view
+create login-controller
+
+[Bookmark] create intercepter

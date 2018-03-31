@@ -58,6 +58,7 @@ module.exports.login = function(req, res) {
 
 module.exports.authenticate = function(req, res, next) {
     var headerExists = req.headers.authorization;
+    console.log("hi")
     if (headerExists) {
         var token = req.headers.authorization.split(" ")[1] // --> authorization beaer xxx
         jwt.verify(token, 's3cr3t', function(error, decoded) {
