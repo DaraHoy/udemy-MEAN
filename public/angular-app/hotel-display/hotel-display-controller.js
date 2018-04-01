@@ -7,7 +7,7 @@ function HotelController($route, $routeParams, hotelDataFactory) {
     //api call to show one endpoint
     hotelDataFactory.hotelDisplay(id).then(function(response) {
         //assign the response data to a view model object e.g 'hotel'
-        console.log(response)
+        //console.log(response)
         vm.hotel = response;
         vm.stars = _getStarsRatings(response.stars)
     });
